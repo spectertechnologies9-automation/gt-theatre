@@ -9,6 +9,9 @@ import { Occasions } from './components/Occasions'
 import { Gallery } from './components/Gallery'
 import { Booking } from './components/Booking'
 import { Finale, Footer } from './components/Finale'
+import { Interactions } from './components/Interactions'
+import { Marquee } from './components/Marquee'
+import { Spotlight } from './components/Spotlight'
 
 export default function App() {
   useEffect(() => {
@@ -24,12 +27,15 @@ export default function App() {
     <>
       <Nav />
       <Cursor />
+      <Interactions />
       <div className="grain" aria-hidden="true" />
       <main id="main">
         <Hero />
         <Story />
+        <Marquee />
         <Experience />
         <Occasions />
+        <Spotlight />
         <Gallery />
         <Booking />
         <Finale />

@@ -41,6 +41,7 @@ The form posts to `POST /api/enquiries`. The server validates the request again 
 | Scene | `src/three/TheatreScene.tsx`: proscenium with gold mouldings, scalloped valance, shader-driven screen, instanced recliners, sconces, dust particles, reflective floor and volumetric projector beam (desktop), additive glow sprites |
 | Motion | GSAP (timelines, ScrollTrigger, SplitText) + Lenis smooth scroll on a single shared ticker. No second animation engine. |
 | Intro logic | `src/components/Hero.tsx`: wordmark, then lit room, then curtains open, then title. It waits for the first 3D frame before the curtain moment. Skip button provided; returning visitors in the same session get a 2-second version (`sessionStorage`). |
+| Interactions | `Interactions.tsx` (gold-dust click bursts, scroll thread, tilt + glare on `[data-tilt]`, hero letters that lean toward the pointer, drag-to-scroll gallery), `Marquee.tsx` (scroll-velocity occasions ribbon), `Spotlight.tsx` (pointer spotlight reveal). Clicking an occasion pre-selects it in the booking form. |
 | Fallbacks | Mobile and low-power devices get fewer curtain segments, no reflections and no volumetric beam. Without WebGL, CSS curtains run the same timeline. With reduced motion there is no intro, no smooth scroll and no pinning, and the layout is static. |
 
 ## Installed dependencies
@@ -54,7 +55,7 @@ Dev: `vite`, `@vitejs/plugin-react`, `typescript`, `@types/*`, `oxlint` (from th
 
 All media is self-hosted under `public/media/`. Full attributions are on `/credits.html`, which is linked from the footer.
 
-- **Photography (10 files, CC0 1.0):** rawpixel (Markus Spiske's velvet curtains, cinema seats, theatre aisle, red stage, red curtain, projector, popcorn) and Wikimedia Commons (champagne glasses, Myriam Zilles). Re-encoded to WebP + JPEG.
+- **Photography (10 files, CC0 1.0):** rawpixel (Markus Spiske's velvet curtains, cinema seats, theatre aisle, red stage, red curtain, projector, popcorn) and Wikimedia Commons (champagne glasses, Myriam Zilles). Re-encoded to WebP + JPEG; the velvet, curtain, seat, aisle and stage photos are colour-graded from red to royal blue to match the palette.
 - **Footage (6 clips, Mixkit Stock Video Free License, commercial use allowed):** #28422, #38817, #28417, #100293 (4K source), #100279 (4K source), #33312. Re-encoded to 1920 px H.264 (CRF 27, no audio, faststart), 0.8–2.4 MB each, with poster frames.
 - **Generated in-project:** the 3D theatre, favicon, `og-image.jpg` and `apple-touch-icon.png`.
 - **Fonts:** Cormorant Garamond and Manrope (SIL OFL 1.1).

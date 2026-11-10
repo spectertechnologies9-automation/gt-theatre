@@ -4,40 +4,35 @@ import { prefersReducedMotion } from '../lib/stage'
 import { Media, type MediaItem } from './Media'
 import { asset } from '../lib/asset'
 
-const CHAPTERS: { no: string; title: string; line: string; body: string; media: MediaItem }[] = [
+const CHAPTERS: { no: string; title: string; line: string; media: MediaItem }[] = [
   {
     no: '01',
     title: 'The Arrival',
     line: 'The doors close behind you.',
-    body: 'Step out of the evening and into a room that has been waiting for your party alone.',
     media: { kind: 'image', src: asset('media/img/aisle.jpg'), alt: 'A dim aisle of steps leading between rows of red seats', w: 1024, h: 683 },
   },
   {
     no: '02',
     title: 'The Seat',
     line: 'Reserved for your party.',
-    body: 'Every seat in the room belongs to someone you invited, so there are no strangers and nobody to share an armrest with.',
     media: { kind: 'image', src: asset('media/img/seats-close.jpg'), alt: 'Close view of crimson cinema seats in soft light', w: 1024, h: 683 },
   },
   {
     no: '03',
     title: 'The Screen',
     line: 'One screen. One story.',
-    body: 'The light leaves the projector and becomes the only thing in the world for the next two hours.',
     media: { kind: 'video', src: asset('media/video/projector.mp4'), poster: asset('media/video/projector-poster.jpg'), alt: 'A vintage film projector running in a warm, dark room' },
   },
   {
     no: '04',
     title: 'The Light',
-    line: 'Dimmed slowly, the way it should be.',
-    body: 'Warm light settles across the room and then fades away for the opening frame.',
+    line: 'Dimmed slowly.',
     media: { kind: 'image', src: asset('media/img/stage-glow.jpg'), alt: 'A stage bathed in deep red light with a single seat in silhouette', w: 1024, h: 683 },
   },
   {
     no: '05',
     title: 'The Hour',
-    line: 'Time moves at the pace of the film.',
-    body: 'Nobody is waiting for the next showing, so you can stay and talk once the credits roll.',
+    line: 'No next showing. Stay.',
     media: { kind: 'video', src: asset('media/video/film-reel.mp4'), poster: asset('media/video/film-reel-poster.jpg'), alt: 'Close-up of a vintage film reel turning' },
   },
 ]
@@ -119,7 +114,6 @@ export function Experience() {
               <span className="xp__no">Act {c.no}</span>
               <h3>{c.title}</h3>
               <p className="xp__line">{c.line}</p>
-              <p className="xp__body">{c.body}</p>
             </article>
           ))}
         </div>

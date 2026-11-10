@@ -58,7 +58,7 @@ export function Story() {
       </h2>
 
       <div className="story__grid">
-        <figure className="story__frame story__frame--tall">
+        <figure className="story__frame story__frame--tall" data-tilt>
           <picture>
             <source srcSet={asset('media/img/velvet-tall.webp')} type="image/webp" />
             <img data-parallax="8" src={asset('media/img/velvet-tall.jpg')} alt="Folds of deep red velvet curtain in low light" loading="lazy" width="683" height="1024" />
@@ -67,23 +67,14 @@ export function Story() {
         </figure>
 
         <div className="story__body">
-          <p className="story__lead">
-            Specter Theatres reimagines the cinema as a private room: a space held for you and the people you choose.
-          </p>
-          <p>
-            There's no stranger in the next seat and no rush for the exit when the credits roll. There's the hush before
-            the first frame, the screen, and the story, shared only with your guests.
-          </p>
-          <p>
-            Bring someone you love, or bring everyone. Either way, the evening is shaped around you and the room belongs to your party.
-          </p>
+          <p className="story__lead">A whole theatre. Only your people.</p>
           <div className="story__sig">
             <span className="gold-rule" />
             <span>An audience of your choosing</span>
           </div>
         </div>
 
-        <figure className="story__frame story__frame--small">
+        <figure className="story__frame story__frame--small" data-tilt>
           <picture>
             <source srcSet={asset('media/img/champagne.webp')} type="image/webp" />
             <img data-parallax="12" src={asset('media/img/champagne.jpg')} alt="Two coupe glasses of champagne glowing against a dark background" loading="lazy" width="1920" height="1280" />

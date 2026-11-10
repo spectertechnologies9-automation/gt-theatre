@@ -65,14 +65,14 @@ export function Curtain({ side, width, height, segX, segY, folds = 11 }: Props) 
   const material = useMemo(() => {
     const noise = velvetNoise()
     return new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#7a0f1d'),
+      color: new THREE.Color('#3a52c4'),
       roughness: 0.92,
       roughnessMap: noise,
       bumpMap: noise,
       bumpScale: 0.6,
       sheen: 1,
       sheenRoughness: 0.38,
-      sheenColor: new THREE.Color('#ff5a6e'),
+      sheenColor: new THREE.Color('#b8c6ff'),
       vertexColors: true,
       side: THREE.DoubleSide,
     })
@@ -164,14 +164,14 @@ export function Valance({ width, height, swags = 5 }: { width: number; height: n
     g.computeVertexNormals()
     const noise = velvetNoise()
     const m = new THREE.MeshPhysicalMaterial({
-      color: '#6e0d1a',
+      color: '#3348b2',
       roughness: 0.9,
       roughnessMap: noise,
       bumpMap: noise,
       bumpScale: 0.5,
       sheen: 1,
       sheenRoughness: 0.4,
-      sheenColor: new THREE.Color('#ff6070'),
+      sheenColor: new THREE.Color('#b8c6ff'),
       vertexColors: true,
       side: THREE.DoubleSide,
     })

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger, scrollToTarget } from '../lib/motion'
 import { prefersReducedMotion } from '../lib/stage'
 import { MagneticButton } from './MagneticButton'
@@ -50,6 +50,18 @@ export function Booking() {
   const formRef = useRef<HTMLFormElement>(null)
   const [f, setF] = useState<Fields>(empty)
   const [errors, setErrors] = useState<Errors>({})
+  // Clicking an occasion elsewhere on the page pre-selects it here.
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const v = (e as CustomEvent<string>).detail
+      if (!OCCASIONS.includes(v)) return
+      setF((cur) => ({ ...cur, occasion: v }))
+      setErrors((cur) => ({ ...cur, occasion: undefined }))
+      setStatus((st) => (st === 'done' ? st : 'idle'))
+    }
+    window.addEventListener('specter:occasion', onPick)
+    return () => window.removeEventListener('specter:occasion', onPick)
+  }, [])
   const [touched, setTouched] = useState<Partial<Record<keyof Fields, boolean>>>({})
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const [serverMsg, setServerMsg] = useState('')
@@ -169,17 +181,17 @@ export function Booking() {
       <div className="book__inner">
         <div className="book__head">
           <div className="section__label">
-            <span>V</span> The Booking Experience
+            <span>V</span> Reserve
           </div>
           <h2 id="book-title" className="display">
             Request your <em>private screening</em>
           </h2>
           <p>
-            {STATIC_PREVIEW
-              ? 'Tell us about the evening you have in mind. This preview site is not yet connected to the Specter Theatres team, so enquiries are checked here but not sent.'
-              : "Tell us about the evening you have in mind. We'll save your enquiry for the Specter Theatres team to review."}
+            Tell us the night you have in mind.
           </p>
-          <p className="book__small">This is an enquiry, not a confirmed booking. Availability is only confirmed when the team gets back to you.</p>
+          <p className="book__small">
+            {STATIC_PREVIEW ? 'Preview site: enquiries are not sent yet.' : 'An enquiry, not a confirmed booking.'}
+          </p>
         </div>
 
         <div className="book__panel">
@@ -205,13 +217,13 @@ export function Booking() {
                 {STATIC_PREVIEW ? 'is complete, but it has not been sent to anyone.' : 'has been recorded.'}
               </p>
               {STATIC_PREVIEW ? (
-                <p className="reveal book__small">This preview site is not connected to the Specter Theatres team yet, so nobody will contact you about this enquiry.</p>
+                <p className="reveal book__small">This preview isn't connected yet, so nobody will contact you.</p>
               ) : (
                 <>
                   <p className="reveal book__ref">
                     Reference <span>{ref}</span>
                   </p>
-                  <p className="reveal book__small">Keep this reference handy. The team will contact you on the number you gave us.</p>
+                  <p className="reveal book__small">We'll call the number you gave us.</p>
                 </>
               )}
               <button className="reveal text-link" onClick={reset} data-cursor="hover">

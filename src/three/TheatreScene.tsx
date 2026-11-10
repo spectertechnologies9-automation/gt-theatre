@@ -13,9 +13,9 @@ const SCREEN_Z = -2.7
 
 const GOLD = new THREE.MeshStandardMaterial({ color: '#c9a45c', metalness: 1, roughness: 0.28 })
 const GOLD_DARK = new THREE.MeshStandardMaterial({ color: '#8e7042', metalness: 1, roughness: 0.42 })
-const WALL = new THREE.MeshStandardMaterial({ color: '#2a060b', roughness: 0.85 })
-const BLACK = new THREE.MeshStandardMaterial({ color: '#070506', roughness: 0.9 })
-const PILLAR = new THREE.MeshPhysicalMaterial({ color: '#3d0810', roughness: 0.7, sheen: 0.6, sheenColor: new THREE.Color('#a03040') })
+const WALL = new THREE.MeshStandardMaterial({ color: '#0f1430', roughness: 0.85 })
+const BLACK = new THREE.MeshStandardMaterial({ color: '#05060c', roughness: 0.9 })
+const PILLAR = new THREE.MeshPhysicalMaterial({ color: '#24307a', roughness: 0.7, sheen: 0.6, sheenColor: new THREE.Color('#6f86e0') })
 
 // ———————————————————————————————————————————— screen
 function Screen() {
@@ -38,7 +38,7 @@ function Screen() {
             float r = length(p);
             float drift = noise(vUv*3.0 + vec2(uTime*0.05, uTime*0.03)) * 0.5 + noise(vUv*7.0 - uTime*0.04)*0.25;
             vec3 core = vec3(0.92, 0.62, 0.4);
-            vec3 edge = vec3(0.42, 0.06, 0.09);
+            vec3 edge = vec3(0.10, 0.13, 0.32);
             vec3 col = mix(core, edge, smoothstep(0.0, 1.05, r + drift*0.25));
             float flicker = 0.96 + 0.04 * sin(uTime*23.0) * sin(uTime*7.3);
             float frame = smoothstep(0.0, 0.015, vUv.x) * smoothstep(0.0, 0.015, 1.0-vUv.x) * smoothstep(0.0, 0.03, vUv.y) * smoothstep(0.0, 0.03, 1.0-vUv.y);
@@ -201,18 +201,18 @@ function Room({ quality }: { quality: Quality }) {
             depthScale={0.6}
             minDepthThreshold={0.4}
             maxDepthThreshold={1.2}
-            color="#0d0809"
+            color="#090b16"
             metalness={0.4}
             roughness={0.85}
           />
         ) : (
-          <meshStandardMaterial color="#0d0809" roughness={0.6} metalness={0.2} />
+          <meshStandardMaterial color="#090b16" roughness={0.6} metalness={0.2} />
         )}
       </mesh>
       {/* aisle runner */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 7.5]}>
         <planeGeometry args={[1.4, 12]} />
-        <meshStandardMaterial color="#2b050b" roughness={0.95} />
+        <meshStandardMaterial color="#0e1230" roughness={0.95} />
       </mesh>
       {/* side walls */}
       {[-1, 1].map((s) => (
@@ -260,11 +260,11 @@ function Seats() {
   const seatMat = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: '#5c0b16',
+        color: '#2c3f96',
         roughness: 0.82,
         sheen: 1,
         sheenRoughness: 0.45,
-        sheenColor: new THREE.Color('#e06072'),
+        sheenColor: new THREE.Color('#7d93ea'),
       }),
     [],
   )
@@ -440,13 +440,13 @@ function Scene({ quality }: { quality: Quality }) {
   const segY = quality === 'high' ? 44 : 26
   return (
     <>
-      <color attach="background" args={['#050304']} />
-      <fog attach="fog" args={['#050304', 14, 30]} />
+      <color attach="background" args={['#06070d']} />
+      <fog attach="fog" args={['#06070d', 14, 30]} />
       <Environment resolution={128} frames={1}>
         <Lightformer intensity={2.2} color="#ffd8a8" position={[0, 6, 6]} scale={[10, 2, 1]} />
         <Lightformer intensity={1.2} color="#ff9c6a" position={[-6, 2, 3]} scale={[3, 6, 1]} />
         <Lightformer intensity={1.2} color="#ff9c6a" position={[6, 2, 3]} scale={[3, 6, 1]} />
-        <Lightformer intensity={0.6} color="#8a1a26" position={[0, -2, 0]} scale={[12, 2, 1]} />
+        <Lightformer intensity={0.6} color="#24357a" position={[0, -2, 0]} scale={[12, 2, 1]} />
       </Environment>
       <Lighting quality={quality} />
       <CameraRig />

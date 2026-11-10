@@ -9,7 +9,7 @@ const FRAMES: { cap: string; note: string; size: 'l' | 'm' | 's' | 't'; media: M
   { cap: 'The quiet rows', note: 'Waiting for you', size: 't', media: { kind: 'image', src: asset('media/img/aisle.jpg'), alt: 'Steps descending between dim rows of red seats', w: 1024, h: 683 } },
   { cap: 'A beam of light', note: 'The first frame', size: 'm', media: { kind: 'image', src: asset('media/img/projector-beam.jpg'), alt: 'A projector casting a beam through haze', w: 1024, h: 683 } },
   { cap: 'The mechanism', note: 'Film, turning', size: 's', media: { kind: 'video', src: asset('media/video/projector-detail.mp4'), poster: asset('media/video/projector-detail-poster.jpg'), alt: 'Close-up of a film projector mechanism in motion' } },
-  { cap: 'Crimson hour', note: 'House lights low', size: 'l', media: { kind: 'image', src: asset('media/img/stage-glow.jpg'), alt: 'A stage washed in red light', w: 1024, h: 683 } },
+  { cap: 'The hour', note: 'House lights low', size: 'l', media: { kind: 'image', src: asset('media/img/stage-glow.jpg'), alt: 'A stage washed in red light', w: 1024, h: 683 } },
   { cap: 'A toast', note: 'Before the opening scene', size: 't', media: { kind: 'image', src: asset('media/img/champagne.jpg'), alt: 'Two coupes of champagne', w: 1920, h: 1280 } },
   { cap: 'Curtain call', note: 'Until next time', size: 'm', media: { kind: 'image', src: asset('media/img/curtain-stage.jpg'), alt: 'A glowing red stage curtain', w: 1024, h: 683 } },
 ]
@@ -81,28 +81,26 @@ export function Gallery() {
   return (
     <section ref={root} id="gallery" className="gal" aria-labelledby="gal-title">
       <div className="gal__pin">
-        <div className="gal__track" ref={track}>
+        <div className="gal__track" ref={track} data-cursor-label="Drag">
           <div className="gal__intro">
             <div className="section__label">
-              <span>IV</span> The Gallery
+              <span>IV</span> Gallery
             </div>
             <h2 id="gal-title" className="display">
-              Frames <em>from the dark</em>
+              Frames <em>of the night</em>
             </h2>
-            <p>A few frames that set the mood before you arrive.</p>
             <span className="gal__hint" aria-hidden="true">
               Scroll <i />
             </span>
           </div>
           {FRAMES.map((f, i) => (
             <figure key={f.cap} className={`gal__frame gal__frame--${f.size}`}>
-              <div className="gal__mask">
+              <div className="gal__mask" data-tilt>
                 <Media item={f.media} />
               </div>
               <figcaption>
                 <span className="gal__fig">Fig. {String(i + 1).padStart(2, '0')}</span>
                 <span className="gal__cap">{f.cap}</span>
-                <span className="gal__note">{f.note}</span>
               </figcaption>
             </figure>
           ))}

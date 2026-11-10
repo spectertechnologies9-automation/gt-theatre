@@ -3,42 +3,49 @@ import { gsap } from '../lib/motion'
 import { prefersReducedMotion } from '../lib/stage'
 import { Media, type MediaItem } from './Media'
 import { asset } from '../lib/asset'
+import { scrollToTarget } from '../lib/motion'
 
-const OCCASIONS: { title: string; kicker: string; line: string; media: MediaItem }[] = [
+// Pre-selects the occasion in the booking form, then glides there.
+function pickOccasion(value: string) {
+  window.dispatchEvent(new CustomEvent('specter:occasion', { detail: value }))
+  scrollToTarget('#reserve')
+}
+
+const OCCASIONS: { title: string; line: string; book: string; media: MediaItem }[] = [
   {
     title: 'Private Movie Nights',
-    kicker: 'For the devoted',
-    line: 'Your film, your snacks and your seat, with no queue anywhere.',
+    line: 'Your film. No queue.',
+    book: "Private movie night",
     media: { kind: 'image', src: asset('media/img/popcorn.jpg'), alt: 'A bowl of fresh popcorn in warm light', w: 1024, h: 683 },
   },
   {
     title: "Couples' Experiences",
-    kicker: 'For two',
-    line: 'A whole theatre, and the only other person in it is the one beside you.',
+    line: 'Just the two of you.',
+    book: "Couples' experience",
     media: { kind: 'video', src: asset('media/video/couple.mp4'), poster: asset('media/video/couple-poster.jpg'), alt: 'A couple leaning into each other while watching a film' },
   },
   {
     title: 'Birthday Celebrations',
-    kicker: 'For the guest of honour',
-    line: 'The curtain rises for one person in particular.',
+    line: 'The curtain rises for one.',
+    book: "Birthday celebration",
     media: { kind: 'image', src: asset('media/img/curtain-stage.jpg'), alt: 'A red stage curtain lit from below', w: 1024, h: 683 },
   },
   {
     title: 'Anniversary Celebrations',
-    kicker: 'For the years together',
-    line: 'Revisit the film that started it, or begin a new tradition.',
+    line: 'Replay where it began.',
+    book: "Anniversary celebration",
     media: { kind: 'image', src: asset('media/img/champagne.jpg'), alt: 'Two coupe glasses of champagne', w: 1920, h: 1280 },
   },
   {
     title: 'Family Screenings',
-    kicker: 'For every generation',
-    line: 'Bring the little ones, the grandparents and everyone in between.',
+    line: 'Every generation, one row.',
+    book: "Family screening",
     media: { kind: 'video', src: asset('media/video/family.mp4'), poster: asset('media/video/family-poster.jpg'), alt: 'A family sharing popcorn while watching a film' },
   },
   {
     title: 'Friends & Exclusive Gatherings',
-    kicker: 'For your inner circle',
-    line: 'The people you choose, in a room that is entirely yours.',
+    line: 'Your circle. Your room.',
+    book: "Friends & exclusive gathering",
     media: { kind: 'video', src: asset('media/video/friends.mp4'), poster: asset('media/video/friends-poster.jpg'), alt: 'Friends laughing together during a film' },
   },
 ]
@@ -90,7 +97,7 @@ export function Occasions() {
     <section ref={root} id="occasions" className="occ section" aria-labelledby="occ-title">
       <div className="occ__head">
         <div className="section__label">
-          <span>III</span> An Experience for Every Occasion
+          <span>III</span> Occasions
         </div>
         <h2 id="occ-title" className="display">
           Every story <em>has its night</em>
@@ -103,6 +110,12 @@ export function Occasions() {
             key={o.title}
             className={`occ__row ${active === i ? 'is-active' : ''} ${active !== null && active !== i ? 'is-dim' : ''}`}
             onPointerEnter={(e) => e.pointerType === 'mouse' && setActive(i)}
+            onClick={() => pickOccasion(o.book)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), pickOccasion(o.book))}
+            tabIndex={0}
+            role="button"
+            aria-label={`${o.title}: reserve this occasion`}
+            data-cursor-label="Reserve"
           >
             <span className="occ__rule" aria-hidden="true" />
             <div className="occ__num">0{i + 1}</div>
@@ -112,8 +125,8 @@ export function Occasions() {
               </span>
             </h3>
             <div className="occ__meta">
-              <span className="occ__kicker">{o.kicker}</span>
               <p>{o.line}</p>
+              <span className="occ__book">Reserve this →</span>
             </div>
             <div className="occ__inline">
               <Media item={o.media} />
